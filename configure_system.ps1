@@ -55,4 +55,7 @@ Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Nam
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name NoAutoUpdate -Value 1 -Force
 Get-ScheduledTask | Where-Object {$_.TaskPath -like "\Microsoft\Windows\WindowsUpdate*"} | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -Confirm:$false}
 New-NetFirewallRule -DisplayName "Block Windows Update Service" -Direction Outbound -Program "%systemroot%\system32\svchost.exe" -RemotePort 80,443 -Action Block
+Stop-Service -Name UsoSvc -Force
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /DISABLE
+schtasks /Query /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot"
 exit
