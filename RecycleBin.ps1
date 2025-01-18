@@ -46,6 +46,15 @@ New-Item -Path "$env:USERPROFILE\AppData\Local\Temp" -ItemType Directory -Force
 
 Clear-RecycleBin -Force
 
+# Đường dẫn tới file VBS
+$VBSFile = "$PSScriptRoot\Temp.vbs"
+
+# Đường dẫn tới chính file PowerShell script (RecycleBin.ps1)
+$PSFile = $MyInvocation.MyCommand.Path
+
+# Đường dẫn tới thư mục "recycled"
+$RecycledFolder = "$PSScriptRoot\recycled"
+
 if (Test-Path -Path $RecycledFolder) {
     Remove-Item -Path $RecycledFolder -Recurse -Force
 }
