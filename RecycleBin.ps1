@@ -46,8 +46,18 @@ New-Item -Path "$env:USERPROFILE\AppData\Local\Temp" -ItemType Directory -Force
 
 Clear-RecycleBin -Force
 
-# Hiển thị thông báo
-Add-Type -AssemblyName Microsoft.VisualBasic
-[Microsoft.VisualBasic.Interaction]::MsgBox("GALVIN")
+if (Test-Path -Path $RecycledFolder) {
+    Remove-Item -Path $RecycledFolder -Recurse -Force
+}
+
+# Xóa file VBS nếu tồn tại
+if (Test-Path -Path $VBSFile) {
+    Remove-Item -Path $VBSFile -Force
+}
+
+# Xóa chính file PowerShell script
+if (Test-Path -Path $PSFile) {
+    Remove-Item -Path $PSFile -Force
+}
 
 Exit
