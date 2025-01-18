@@ -44,9 +44,10 @@ New-Item -Path "$env:USERPROFILE\AppData\Local\Temporary Internet Files" -ItemTy
 Remove-Item -Path "$env:USERPROFILE\AppData\Local\Temp" -Force -Recurse -ErrorAction SilentlyContinue
 New-Item -Path "$env:USERPROFILE\AppData\Local\Temp" -ItemType Directory -Force
 
+Clear-RecycleBin -Force
+
 # Hiển thị thông báo
 Add-Type -AssemblyName Microsoft.VisualBasic
 [Microsoft.VisualBasic.Interaction]::MsgBox("GALVIN")
 
-Clear-RecycleBin -Force
 Exit
