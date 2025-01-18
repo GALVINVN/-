@@ -1,3 +1,6 @@
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
 ' Đường dẫn tới file PowerShell script
 strPSFile = objFSO.GetSpecialFolder(2) & "C:\RecycleBin.ps1"
 
