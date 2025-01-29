@@ -9,10 +9,10 @@ Start-CoinRun # Start the process initially
 
 while ($true) {
   if ($global:coinRunProcess.HasExited) {
-    Write-Warning "coinrun.cmd đã dừng. Khởi động lại..."
+    Write-Warning "coinrun.cmd STOP. Reboot..."
     Start-CoinRun # Restart the process
   } else {
-    Write-Host "coinrun.cmd đang chạy..."
+    Write-Host "coinrun.cmd running..."
   }
 
   Start-Sleep -Seconds 3
