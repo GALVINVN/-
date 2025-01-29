@@ -15,5 +15,5 @@ while ($true) {
     Write-Host "coinrun.cmd đang chạy..."
   }
 
-  Start-Sleep -Seconds 3600
+  Start-Sleep -Seconds 360
 }
