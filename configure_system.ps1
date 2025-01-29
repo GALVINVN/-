@@ -59,4 +59,5 @@ Get-ScheduledTask | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskNa
 Stop-Service -Name UsoSvc -Force
 schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /DISABLE
 schtasks /Query /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot"
+Clear-RecycleBin -Force
 exit
