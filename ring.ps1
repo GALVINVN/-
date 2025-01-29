@@ -1,4 +1,4 @@
-$coinRunPath = "C:\Users\v1\Desktop\xmrig-6.22.0\coinrun.cmd"
+$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
 function Start-CoinRun {
   $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru  # Removed -NoNewWindow
