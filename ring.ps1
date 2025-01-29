@@ -2,7 +2,7 @@ $coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
 function Start-CoinRun {
   $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru  # Removed -NoNewWindow
-  Write-Host "coinrun.cmd đã được khởi động."
+  Write-Host "coinrun.cmd START"
 }
 
 Start-CoinRun # Start the process initially
