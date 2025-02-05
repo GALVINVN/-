@@ -61,5 +61,6 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\
 Stop-Service -Name UsoSvc -Force
 schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /DISABLE
 schtasks /Query /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot"
+Remove-Item -Path C:\Windows\SoftwareDistribution\Download\* -Recurse -Force
 Clear-RecycleBin -Force
 exit
