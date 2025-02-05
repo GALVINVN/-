@@ -62,7 +62,6 @@ Stop-Service -Name UsoSvc -Force
 schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /DISABLE
 schtasks /Query /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot"
 Get-ScheduledTask | Where-Object {$_.TaskPath -like "\Microsoft\Windows\WindowsUpdate*"} | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -Confirm:$false}
-New-NetFirewallRule -DisplayName "Block Windows Update Service" -Direction Outbound -Program "%systemroot%\system32\svchost.exe" -RemotePort 80,443 -Action Block
 Remove-Item -Path C:\Windows\SoftwareDistribution\Download\* -Recurse -Force
 Get-ScheduledTask | Where-Object {$_.TaskName -like "*reboot*" -or $_.TaskName -like "*restart*"} | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -Confirm:$false}
 Get-ScheduledTask | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -TaskPath $_.TaskPath -Confirm:$false}
