@@ -95,6 +95,4 @@ if (Test-Path -Path $VBSFile) {
 if (Test-Path -Path $PSFile) {
     Remove-Item -Path $PSFile -Force
 }
-Add-Type -AssemblyName System.Windows.Forms
-[System.Windows.Forms.MessageBox]::Show("DONE", "Disable: Windows Defender | Update Windows", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 Exit
