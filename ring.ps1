@@ -40,7 +40,7 @@ while ($true) {
                 Start-Sleep -Seconds 3
             }
 
-            Write-Host "Đã phát hiện lại xmrig.exe. Khởi động coinrun.cmd"
+            Write-Host "START coinrun.cmd"
             
         } else {
             Write-Error "NO Setup.vbs: $setupPath"
