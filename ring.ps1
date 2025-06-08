@@ -8,7 +8,7 @@ function Start-CoinRun {
 }
 
 if (Test-Path $xmrigPath) {
-    
+    Start-CoinRun
 } else {
     Write-Warning "xmrig.exe DoseNotExist..."
     if (Test-Path $setupPath) {
