@@ -8,51 +8,51 @@ function Is-XmrigRunning {
 
 function Start-CoinRun {
     if (Is-XmrigRunning) {
-        Write-Host "xmrig.exe đã chạy. Không khởi chạy lại."
+        Write-Host "xmrig.exe Running. STOP"
         return
     }
 
     $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
-    Write-Host "Đã khởi chạy coinrun.cmd"
+    Write-Host "Running coinrun.cmd"
 }
 
 # Lần đầu khởi chạy
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
-    Write-Warning "xmrig.exe không tồn tại. Đang chạy Setup.vbs..."
+    Write-Warning "xmrig.exe NOT. RUN Setup.vbs..."
     if (Test-Path $setupPath) {
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-        Write-Host "Đã chạy Setup.vbs"
+        Write-Host "Running Setup.vbs"
 
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "Đang chờ xmrig.exe xuất hiện..."
+            Write-Host "Wait xmrig.exe..."
             Start-Sleep -Seconds 3
         }
 
         Start-CoinRun
     } else {
-        Write-Error "Không tìm thấy Setup.vbs"
+        Write-Error "NOT Setup.vbs"
     }
 }
 
 # Vòng lặp giám sát
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe bị xóa. Đang chạy lại Setup.vbs..."
+        Write-Warning "xmrig.exe DEL. Run Setup.vbs..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-            Write-Host "Đã chạy lại Setup.vbs"
+            Write-Host "RUN Setup.vbs"
 
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "Đang chờ xmrig.exe xuất hiện lại..."
+                Write-Host "Wait xmrig.exe..."
                 Start-Sleep -Seconds 3
             }
 
             Start-CoinRun
         } else {
-            Write-Error "Không tìm thấy Setup.vbs tại $setupPath"
+            Write-Error "NOT Setup.vbs $setupPath"
         }
     }
 
@@ -61,7 +61,7 @@ while ($true) {
         Write-Warning "coinrun.cmd STOPPED. Checking xmrig status..."
         Start-CoinRun
     } elseif ($global:coinRunProcess) {
-        Write-Host "coinrun.cmd vẫn đang chạy..."
+        Write-Host "coinrun.cmd running..."
     }
 
     Start-Sleep -Seconds 3
