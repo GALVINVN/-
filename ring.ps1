@@ -46,5 +46,12 @@ while ($true) {
             Write-Error "NO Setup.vbs: $setupPath"
         }
     }
+    if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
+        Write-Warning "coinrun.cmd STOP. Reboot..."
+        Start-CoinRun
+    } elseif ($global:coinRunProcess) {
+        Write-Host "coinrun.cmd running..."
+    }
+    
     Start-Sleep -Seconds 3
 }
