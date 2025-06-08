@@ -16,7 +16,7 @@ function Start-CoinRun {
     Write-Host "Running coinrun.cmd"
 }
 
-# Lần đầu khởi chạy
+
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
@@ -36,7 +36,7 @@ if (Test-Path $xmrigPath) {
     }
 }
 
-# Vòng lặp giám sát
+
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
         Write-Warning "xmrig.exe DEL. Run Setup.vbs..."
@@ -56,7 +56,7 @@ while ($true) {
         }
     }
 
-    # Nếu tiến trình coinrun bị tắt (do lỗi) → khởi động lại nếu chưa có xmrig.exe chạy
+
     if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
         Write-Warning "coinrun.cmd STOPPED. Checking xmrig status..."
         Start-CoinRun
