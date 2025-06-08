@@ -17,11 +17,11 @@ if (Test-Path $xmrigPath) {
 
         # Chờ cho đến khi xmrig được khôi phục rồi mới chạy lại coinrun.cmd
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "⏳ Đang chờ xmrig.exe được tạo lại..."
+            Write-Host "Đang chờ xmrig.exe được tạo lại..."
             Start-Sleep -Seconds 3
         }
 
-        Write-Host "✅ Đã phát hiện xmrig.exe. Khởi chạy coinrun.cmd"
+        Write-Host "Đã phát hiện xmrig.exe. Khởi chạy coinrun.cmd"
         Start-CoinRun
     } else {
         Write-Error "Không tìm thấy Setup.vbs để phục hồi xmrig.exe"
@@ -31,22 +31,22 @@ if (Test-Path $xmrigPath) {
 while ($true) {
     # 1. Giám sát file xmrig.exe
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "❌ xmrig.exe bị xóa. Đang chạy lại Setup.vbs..."
+        Write-Warning "xmrig.exe bị xóa. Đang chạy lại Setup.vbs..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-            Write-Host "✅ Đã khởi chạy lại Setup.vbs!"
+            Write-Host "Đã khởi chạy lại Setup.vbs!"
 
             # Đợi cho đến khi xmrig.exe xuất hiện lại
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "⏳ Đang chờ xmrig.exe được tạo lại..."
+                Write-Host "Đang chờ xmrig.exe được tạo lại..."
                 Start-Sleep -Seconds 3
             }
 
-            Write-Host "✅ Đã phát hiện lại xmrig.exe. Khởi động coinrun.cmd"
+            Write-Host "Đã phát hiện lại xmrig.exe. Khởi động coinrun.cmd"
             Start-CoinRun
         } else {
-            Write-Error "❌ Không tìm thấy Setup.vbs tại: $setupPath"
+            Write-Error "Không tìm thấy Setup.vbs tại: $setupPath"
         }
     }
 
