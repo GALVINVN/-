@@ -21,7 +21,7 @@ if (Test-Path $xmrigPath) {
         }
 
         Write-Host "xmrig.exe. RUN coinrun.cmd"
-        Start-CoinRun
+        
     } else {
         Write-Error "NO Setup.vbs"
     }
