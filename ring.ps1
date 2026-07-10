@@ -15,9 +15,6 @@ if (Test-Path $xmrigPath) {
             Write-Host "Waiting for xmrig.exe..."
             Start-Sleep -Seconds 3
         }
-        Start-CoinRun
-    } else {
-        Write-Error "Setup.vbs not found at $setupPath"
     }
   }
 }
